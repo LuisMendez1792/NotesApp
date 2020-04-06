@@ -1,6 +1,9 @@
 body{
-    background: rgb(212, 160, 233);
+    background-color: beige;
 }
 .logo{
     width: 30%;
+}
+.form-group{
+    margin: 20px;
 }
