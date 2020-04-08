@@ -16,15 +16,20 @@ userCtrl.signup = async (req, res) => {
         errors.push({text: 'Passwords must be at least 4 characters'});
     }
     if(errors.length >0 ){
-        res.render('/users/signup', {
+        res.render('users/signup', {
             errors,
             firstname, lastname, email, phone
         });
     }else{
         const emailUser = await User.findOne({email: email});
         if(emailUser){
-            req.flash('error_msg', 'The email is already in use.');
-            res.redirect('/users/signup');
+          errors.push({text: 'The email is already in use.'})
+        }
+        if(emailUser){
+          res.render('users/signup', {
+            errors, firstname, lastname, phone
+          });
+          
         }else{
             const newUser = new User({firstname, lastname, email, phone, password});
             newUser.password= await newUser.encryp(password);
